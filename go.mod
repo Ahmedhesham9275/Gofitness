@@ -2,13 +2,18 @@ module myblog
 
 go 1.20
 
-require gorm.io/driver/postgres v1.5.9
+require (
+	github.com/stretchr/testify v1.9.0
+	gorm.io/driver/postgres v1.5.9
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/joho/godotenv v1.5.1
 	github.com/kr/text v0.2.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	gorm.io/driver/mysql v1.5.6 // indirect
 )

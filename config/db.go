@@ -7,6 +7,7 @@ import (
 
 	"myblog/models"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -14,6 +15,12 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
+	// Load the .env file
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		panic("Error loading .env file")
+	}
+
 	// Fetching database connection details from environment variables
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
