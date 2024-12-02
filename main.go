@@ -1,13 +1,13 @@
 package main
 
 import (
-	"myblog/config"
-	"myblog/routes"
+	"fitnesshub/database"
+	"fitnesshub/routes"
 )
 
 func main() {
 	// Initialize database connection
-	config.ConnectDatabase()
+	database.ConnectDatabase()
 
 	// Setup routes
 	router := routes.SetupRouter()

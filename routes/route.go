@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"myblog/controllers"
-	"myblog/middlewares"
+	"fitnesshub/controllers"
+	"fitnesshub/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,13 +15,13 @@ func SetupRouter() *gin.Engine {
 	router.POST("/search_words", controllers.SearchWords)
 
 	protected := router.Group("/api")
-	protected.GET("/posts", controllers.GetPosts)
-	protected.GET("/posts/:id", controllers.GetPost)
+	protected.GET("/package", controllers.GetPackages)
+	protected.GET("/package/:id", controllers.GetPackage)
 	protected.Use(middlewares.AuthMiddleware())
 	{
-		protected.POST("/posts", controllers.CreatePost)
-		protected.PUT("/posts/:id", controllers.UpdatePost)
-		protected.DELETE("/posts/:id", controllers.DeletePost)
+		protected.POST("/package", controllers.CreatePackage)
+		protected.PUT("/package/:id", controllers.UpdatePackage)
+		protected.DELETE("/package/:id", controllers.DeletePackage)
 	}
 
 	return router

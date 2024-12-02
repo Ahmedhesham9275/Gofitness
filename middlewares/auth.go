@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"myblog/utils"
+	"fitnesshub/utils"
 	"net/http"
 	"strings"
 

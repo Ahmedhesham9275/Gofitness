@@ -1,11 +1,11 @@
-package config
+package database
 
 import (
 	"fmt"
 	"log"
 	"os"
 
-	"myblog/models"
+	"fitnesshub/models"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -45,7 +45,7 @@ func ConnectDatabase() {
 	}
 
 	// Auto migrate your models
-	database.AutoMigrate(&models.User{}, &models.Post{}, &models.SearchStatistic{})
+	database.AutoMigrate(&models.User{}, &models.Package{}, &models.SearchStatistic{})
 
 	DB = database
 }

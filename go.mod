@@ -1,4 +1,4 @@
-module myblog
+module fitnesshub
 
 go 1.20
 

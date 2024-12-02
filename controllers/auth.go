@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"myblog/config"
-	"myblog/models"
-	"myblog/utils"
+	"fitnesshub/database"
+	"fitnesshub/models"
+	"fitnesshub/utils"
 	"net/http"
 	"regexp"
 
@@ -38,7 +38,7 @@ func Register(c *gin.Context) {
 	}
 	input.Password = string(hashedPassword)
 
-	if err := config.DB.Create(&input).Error; err != nil {
+	if err := database.DB.Create(&input).Error; err != nil {
 		// Check if the error is a unique constraint violation
 		if isUniqueViolationError(err) {
 			c.JSON(http.StatusConflict, gin.H{"error": "Username already exists"})
@@ -74,7 +74,7 @@ func Login(c *gin.Context) {
 	}
 
 	var user models.User
-	if err := config.DB.Where("username = ?", input.Username).First(&user).Error; err != nil {
+	if err := database.DB.Where("username = ?", input.Username).First(&user).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 			return

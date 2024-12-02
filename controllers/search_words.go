@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"myblog/config"
-	"myblog/models"
+	"fitnesshub/database"
+	"fitnesshub/models"
 	"net/http"
 	"strings"
 	"sync"
@@ -22,8 +22,8 @@ func SearchWords(c *gin.Context) {
 		return
 	}
 
-	var posts []models.Post
-	if err := config.DB.Find(&posts).Error; err != nil {
+	var posts []models.Package
+	if err := database.DB.Find(&posts).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch posts"})
 		return
 	}
@@ -40,10 +40,10 @@ func SearchWords(c *gin.Context) {
 			df := 0
 
 			// Calculate TF and DF
-			for _, post := range posts {
-				if strings.Contains(strings.ToLower(post.Content), word) {
+			for _, Package := range posts {
+				if strings.Contains(strings.ToLower(Package.Description), word) {
 					df++
-					tf += strings.Count(strings.ToLower(post.Content), word)
+					tf += strings.Count(strings.ToLower(Package.Description), word)
 				}
 			}
 
@@ -55,7 +55,7 @@ func SearchWords(c *gin.Context) {
 			models.Mutex.Lock()
 			defer models.Mutex.Unlock()
 
-			if err = config.DB.Where("word = ?", word).First(&stat).Error; err != nil {
+			if err = database.DB.Where("word = ?", word).First(&stat).Error; err != nil {
 				if err.Error() == "record not found" {
 					stat = models.SearchStatistic{Word: word}
 				} else {
@@ -91,7 +91,7 @@ func SearchWords(c *gin.Context) {
 			}
 			stat.History = historyJSON
 
-			if err := config.DB.Save(&stat).Error; err != nil {
+			if err := database.DB.Save(&stat).Error; err != nil {
 				resultChannel <- map[string]interface{}{
 					"word":  word,
 					"error": "Failed to save word statistics",
