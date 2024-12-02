@@ -12,7 +12,6 @@ func SetupRouter() *gin.Engine {
 
 	router.POST("/login", controllers.Login)
 	router.POST("/register", controllers.Register)
-	router.POST("/search_words", controllers.SearchWords)
 
 	protected := router.Group("/api")
 	protected.GET("/package", controllers.GetPackages)
