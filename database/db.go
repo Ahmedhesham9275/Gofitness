@@ -45,7 +45,7 @@ func ConnectDatabase() {
 	}
 
 	// Auto migrate your models
-	database.AutoMigrate(&models.User{}, &models.Package{}, &models.SearchStatistic{})
+	database.AutoMigrate(&models.User{}, &models.Package{})
 
 	DB = database
 }
